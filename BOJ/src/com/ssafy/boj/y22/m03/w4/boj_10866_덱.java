@@ -1,4 +1,4 @@
-package com.ssafy.boj.y22.m03.w3;
+package com.ssafy.boj.y22.m03.w4;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
