@@ -62,9 +62,6 @@ public class BOJ_2805_나무자르기 {
 		// 리턴값으로 비교하고 Arrays.sort(a, c)는 a의 원소 객체의 compareTo메소드는 무시하고
 		// c의 compare(T o1, T o2)의 리턴값으로 비교한다.
 		
-		// 블로그 작성ㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁ
-		// 1.  Arrays.sort
-		// 2. 오답노트
 		
 		// 내림차순 정렬
 		Arrays.sort(wood, Collections.reverseOrder());
