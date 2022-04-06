@@ -15,9 +15,11 @@ import java.util.Stack;
 public class BOJ_1260_DFS와BFS {
 	public static Map<Integer, node> nodeMap;
 	public static int N;
+	public static List<Integer> path;
+	public static boolean[] check;
 
 	public static class node {
-		// 1~N노드가 내 이웃인지 아닌지 알려줌
+		// 인덱스로 1~N노드가 내 이웃인지 아닌지 알려줌
 		private boolean[] neighbor;
 
 		public node(boolean[] neighbor) {
@@ -67,19 +69,35 @@ public class BOJ_1260_DFS와BFS {
 		}
 
 		// DFS 결과
-		List<Integer> dfsPath = DFS(V);
-		System.out.println(dfsPath);
+		path = new LinkedList<>();
+		check = new boolean[N + 1];
 
-
-		// DFS구현까지 했고 
+		// DFS구현까지 했고
 		// 이제 미로1에서 BFS 연습하고 여기서 BFS 구현하시오ㅁㅁㅁㅁㅁ
-		
-		
+		DFS_recur(V);
+
 		// 출력
+		for (int i = 0; i < path.size(); i++) {
+			bw.write(path.get(i) + " ");
+		}
 		bw.flush();
 	}
 
-	public static List<Integer> DFS(int nodeNum) {
+
+
+	public static void DFS_recur(int nodeNum) {
+		path.add(nodeNum);
+		check[nodeNum] = true;
+		boolean[] neighbor = nodeMap.get(nodeNum).getNeighbor();
+		for (int i = 1; i <= N; i++) {
+			// 내 이웃이면서 방문한 적이 없는 노드에 재귀를 실행한다.
+			if (neighbor[i] == true && check[i] == false) {
+				DFS_recur(i);
+			}
+		}
+	}
+
+	public static List<Integer> DFS_stack(int nodeNum) {
 		int nodeN = nodeNum;
 		List<Integer> path = new LinkedList<>();
 		Stack<Integer> stk = new Stack<>();
@@ -104,7 +122,7 @@ public class BOJ_1260_DFS와BFS {
 				// 나 자신
 				stk.pop();
 				nodeN = stk.pop();
-			// 방문 안한 이웃도 없고 되돌아갈 곳도 없다 -> 종료
+				// 방문 안한 이웃도 없고 되돌아갈 곳도 없다 -> 종료
 			} else {
 				break whileLoop;
 			}
@@ -112,6 +130,46 @@ public class BOJ_1260_DFS와BFS {
 		}
 		return path;
 	}
+
+	
+	// BFS(큐방식밖에 없음) 구현ㅁㅁㅁㅁㅁㅁㅁ
+	
+	
+	
+	
+	
+	
+	
+	// 의미 없는 DFS
+	// 스택을 사용한 DFS를 깔끔하게 구성해보려했는데
+	// 그냥 한가지 길만 쭉 따라가고 되돌아가는 기능없는 탐색이 되었다.
+	public static void DFS_trash(int nodeNum) {
+		Stack<Integer> nodeStk = new Stack<>();
+		// 첫 노드 스택에 담기
+		nodeStk.add(nodeNum);
+		// 스택에 담긴 노드가 다시 담기는 것을 방지하기 위해
+		// 스택에 넣을 때 완료표시한다.
+		check[nodeNum]=true;
+		while(!nodeStk.isEmpty()) {
+			// 스택에서 꺼내기
+			int nodeNow = nodeStk.pop();
+			path.add(nodeNow);
+			// 꺼낸 노드의 이웃 정보 얻기
+			boolean [] neighbor = nodeMap.get(nodeNow).getNeighbor();
+			// 이웃 탐색
+			for (int i = 1; i <= N; i++) {
+				// 내 이웃이면서 방문한 적이 없는 노드에 재귀를 실행한다.
+				if (neighbor[i] == true && check[i] == false) {
+					nodeStk.add(i);
+					check[i]=true;
+					// 첫 하나만 쌓는다!!!!!!!!!!!!!!!!!!!!!!
+					break;
+				}
+			}
+		}
+	}
+
+
 }
 
 // End
