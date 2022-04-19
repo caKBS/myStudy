@@ -14,13 +14,6 @@ public class boj_2567_색종이2 {
 		int N = Integer.parseInt(br.readLine());
 		boolean[][] board = new boolean[102][102];
 		
-		// 블로그에 필기할것ㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁ
-		// 1. 이 문제같은 케이스는 인덱스 안맞아도 시작을 +1에서 시작해서
-		// padding을 줌으로써 boundary를 간편하게 처리할 수 있음
-		// 2. 각 부분은 두변에 대해 일조해야하므로 남들보다 1회더 cnt++해야하고
-		// 이 cnt++하는 횟수는 본인 주변 0의 개수와 일치한다.
-		// ㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁ
-
 		// N장에 대해 색칠놀이
 		for (int nIdx = 1; nIdx <= N; nIdx++) {
 			String inNum = br.readLine();
