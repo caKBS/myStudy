@@ -13,46 +13,49 @@ import java.util.List;
 
 public class BOJ_5430_AC {
 	public static boolean dir;
+	public static StringBuilder sb;
 
 	public static void main(String[] args) throws NumberFormatException, IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 
 		int T = Integer.parseInt(br.readLine());
+		sb = new StringBuilder();
 		for(int tc=1; tc<=T; tc++) {
 			char [] orders = br.readLine().toCharArray();
 			int n = Integer.parseInt(br.readLine());
-			Deque<Integer> DQ = new LinkedList<>(); //ㅁㅁㅁㅁㅁㅁㅁ
+			Deque<Integer> DQ = new LinkedList<>();
 			String [] arr = br.readLine().split(",");
 			if(!game(orders, DQ, arr, n)) {
-				System.out.println("error");
+				sb.append("error\n");
 			}else {
 				trimPrint(DQ);
 			}
 		}
+		System.out.println(sb);
 
 	}
 	// 출력할때 [1, 2, 3]처럼 사이에 빈칸 있으면 안되서 Arrays.toString() 못 씀.
 	public static void trimPrint(Deque<Integer> DQ) {
 		Integer [] arr = DQ.toArray(new Integer[DQ.size()]);
 		if(!dir) {
-			System.out.print("[");
+			sb.append("[");
 			for(int i=0; i<arr.length;i++) {
-				System.out.print(arr[i]);
+				sb.append(arr[i]);
 				if(i != arr.length-1) {
-				System.out.print(",");
+					sb.append(",");
 				}
 			}
-			System.out.print("]\n");
+			sb.append("]\n");
 		}else {
-			System.out.print("[");
+			sb.append("[");
 			for(int i=arr.length-1; i>=0;i--) {
-				System.out.print(arr[i]);
+				sb.append(arr[i]);
 				if(i != 0) {
-				System.out.print(",");
+					sb.append(",");
 				}
 			}
-			System.out.print("]\n");
+			sb.append("]\n");
 		}
 	}
 	
@@ -62,13 +65,14 @@ public class BOJ_5430_AC {
 		// 맨 앞과 맨뒤의 "[", "]" 제거
 		if(n>=2) {
 		arr[0]= arr[0].substring(1);
-		// 종료 인덱스 "전"까지 반영ㅁㅁㅁㅁㅁ
+		// 종료 인덱스 "전"까지 반영
 		arr[n-1] = arr[n-1].substring(0,arr[n-1].length()-1);
 		}else if(n==1) {
 			arr[0]= arr[0].substring(1,arr[0].length()-1);
 		}else {
 			nothing=true;
 		}
+		
 		
 		// DQ에 담기
 		if(!nothing) {
