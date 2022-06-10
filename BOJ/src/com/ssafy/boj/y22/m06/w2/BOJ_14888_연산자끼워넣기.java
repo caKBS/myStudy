@@ -97,7 +97,7 @@ public class BOJ_14888_연산자끼워넣기 {
 			case 2:
 				sum*=nums[i];
 				break;
-			// '%'
+			// '/'
 			case 3:
 				if(sum >= 0) {
 					sum /= nums[i];
