@@ -36,8 +36,6 @@ public class BOJ_14500_테트로미노 {
 		// 지나온 칸의 개수를 세서 4개면 리턴 시키기.
 
 		// 입력 받기
-		int T = Integer.parseInt(br.readLine());
-		for(int tc=1; tc<=T;tc++) {
 		StringTokenizer st = new StringTokenizer(br.readLine());
 		N = Integer.parseInt(st.nextToken());
 		M = Integer.parseInt(st.nextToken());
@@ -66,8 +64,6 @@ public class BOJ_14500_테트로미노 {
 		
 		// 출력
 		System.out.println(maxVal);
-		
-		}
 
 	}
 
@@ -101,7 +97,8 @@ public class BOJ_14500_테트로미노 {
 	}
 	
 	public static int orange(int r, int c, int dir) {
-		int sum = 0;
+		int sumA = 0;
+		int sumB = 0;
 		
 		for(int i=0; i<3;i++) {
 			int nr = r+dr[dir]*i;
@@ -109,23 +106,35 @@ public class BOJ_14500_테트로미노 {
 			if(!BC(nr,nc)) {
 				return -1;
 			}else {
-				sum+=board[nr][nc];
+				sumA+=board[nr][nc];
+				sumB+=board[nr][nc];
 			}
 		}
 		
 		int nr = r+dr[dir]*2+dr[(dir+1)%4];
 		int nc = c+dc[dir]*2+dc[(dir+1)%4];
 		if(!BC(nr,nc)) {
-			return -1;
+			sumA= -1;
 		}else {
-			sum+=board[nr][nc];
+			sumA+=board[nr][nc];
 		}
 		
-		return sum;
+		nr = r+dr[dir]*2+dr[(dir+3)%4];
+		nc = c+dc[dir]*2+dc[(dir+3)%4];
+		if(!BC(nr,nc)) {
+			sumB= -1;
+		}else {
+			sumB+=board[nr][nc];
+		}
+		
+		
+		
+		return Math.max(sumA, sumB);
 	}
 	
 	public static int green(int r, int c, int dir) {
-		int sum = 0;
+		int sumA = 0;
+		int sumB = 0;
 		
 		int nr1 = r; int nc1 = c;
 		int nr2 = nr1+dr[dir]; int nc2 = nc1+dc[dir]; 
@@ -135,10 +144,22 @@ public class BOJ_14500_테트로미노 {
 		if( !BC(nr1,nc1) || !BC(nr2,nc2) || !BC(nr3,nc3) || !BC(nr4,nc4)) {
 			return -1;
 		}else {
-			sum = board[nr1][nc1] + board[nr2][nc2] + board[nr3][nc3] 
+			sumA = board[nr1][nc1] + board[nr2][nc2] + board[nr3][nc3] 
 					+  board[nr4][nc4];
 		}
-		return sum;
+		
+		nr3 = nr2+dr[(dir+3)%4]; nc3 = nc2+dc[(dir+3)%4]; 
+		nr4 = nr3+dr[dir]; nc4 = nc3+dc[dir]; 
+
+		if( !BC(nr1,nc1) || !BC(nr2,nc2) || !BC(nr3,nc3) || !BC(nr4,nc4)) {
+			return -1;
+		}else {
+			sumB = board[nr1][nc1] + board[nr2][nc2] + board[nr3][nc3] 
+					+  board[nr4][nc4];
+		}
+		
+		
+		return Math.max(sumA, sumB);
 	}
 	
 	public static int purple(int r, int c, int dir) {
